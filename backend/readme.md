@@ -4,8 +4,9 @@ Esta API fue desarrollada con Node.js, Express.js, MongoDB Atlas, Mongoose y Joi
 # URL base
 https://prueba-tecnica-disagro.vercel.app/api/v1/
 
-## Endpoints
-Obtener todas las asistencias confirmadas
+# Endpoints
+
+## Obtener todas las asistencias confirmadas
 Endpoint: GET /api/v1/assistance
 
 Este endpoint devuelve todas las asistencias confirmadas por los usuarios.
@@ -29,7 +30,7 @@ Copy code
 ```
 
 ## Obtener productos y servicios
-Endpoint: POST /api/v1/products-and-services
+Endpoint: GET /api/v1/products-and-services
 
 Este endpoint permite obtener todos los productos y servicios que el usuario puede elegir.
 
