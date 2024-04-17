@@ -7,9 +7,21 @@ import PersonalDataForm from "../components/PersonalDataForm";
 import Searcher from "../components/Searcher";
 import ButtonComfirm from "../components/ButtonComfirm";
 import ListItem from "../components/ListItem";
+import { getAuth } from "firebase/auth";
+import { Navigate, useNavigate } from "react-router-dom";
+
 
 
 function Home() {
+  
+  
+  const auth = getAuth();
+  const user = auth.currentUser
+  if(!user){
+      return <Navigate to="/" replace />;
+    
+  }
+
     const [prodAndServ, setProdAndServ] = useState([])
     const [display, setDisplay] = useState([])
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
@@ -21,9 +33,9 @@ function Home() {
         name:"",
         lastName:"",
         email:"",
-        date:"",
-        cart:[],
+        date:""
     })
+    
     useEffect(()=>{
       const callApi=async()=>{
         const res = await fetch('https://prueba-tecnica-disagro.vercel.app/api/v1/products-and-services');
@@ -37,7 +49,7 @@ function Home() {
         const word = e.target.value;
         const res = prodAndServ.filter(item=>{
             const name = item.name;
-            return name.includes(word)
+            return name.toLowerCase().includes(word.toLowerCase())
         })
         setDisplay(res)
     }
@@ -72,7 +84,7 @@ function Home() {
         if(info.name!="" && info.lastName!="" && info.email!="" && info.date!="" && selectedCheckboxes.length 
         !=0){
           
-          setInfo({...info,cart:[...selectedCheckboxes]})
+          
           const url = 'https://prueba-tecnica-disagro.vercel.app/api/v1/assistance'
           
           const response = await fetch(url, {
@@ -80,7 +92,7 @@ function Home() {
             headers: {
               "Content-Type": "application/json",
             },
-             body: JSON.stringify(info), 
+             body: JSON.stringify({...info,cart:[...selectedCheckboxes],user:user.uid}), 
           });
           if(response.ok){
             
@@ -107,7 +119,8 @@ function Home() {
         },2000)
     }
   return (
-    <>
+    
+     <>
       <header>
         <Navbar/>
       </header>
@@ -157,6 +170,7 @@ function Home() {
         </div>
       }
     </>
+    
   );
 }
 export default Home;
