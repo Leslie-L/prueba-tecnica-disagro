@@ -2,7 +2,7 @@
 
 Esta es la solucion a la prueba tecnica de disagro que consiste en una página web desarrollada con React, Vite, Tailwind CSS y Firebase. La aplicación permite a los usuarios iniciar sesión y completar un formulario para solicitar servicios.
 
-## ecnologías Utilizadas
+## Tecnologías Utilizadas
 - React: Una biblioteca de JavaScript para construir interfaces de usuario.
 -  Vite: Un entorno de desarrollo rápido para aplicaciones web modernas.
 - Tailwind CSS: Un framework de CSS utility-first para diseñar interfaces de usuario.
