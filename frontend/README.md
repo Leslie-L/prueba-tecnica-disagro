@@ -15,7 +15,7 @@ Clona este repositorio:
 
 ```
 Copy code
-git clone https://github.com/tu-usuario/prueba-tecnica.git
+git clone https://github.com/Leslie-L/prueba-tecnica-disagro.git
 ```
 Accede al directorio del proyecto:
 ```
