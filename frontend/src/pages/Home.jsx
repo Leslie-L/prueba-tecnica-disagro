@@ -65,12 +65,8 @@ function Home() {
         lastname:"",
         email:"",
         date:"",
-        pordAndService:[],
+        cart:[],
     })
-   
-    
-    
-  
 
     const handlerDisplay=(e)=>{
         const word = e.target.value;
@@ -106,9 +102,12 @@ function Home() {
     };
 
     const handlerSubmit =()=>{
-        if(info.name!="" && info.lastname!="" && info.email!="" && info.date!="" && selectedCheckboxes.length >=1){
-          setInfo(info.prodAndServ=[...selectedCheckboxes])
+        
+        if(info.name!="" && info.lastname!="" && info.email!="" && info.date!="" && selectedCheckboxes.length 
+        !=0){
+          setInfo({...info,cart:[...selectedCheckboxes]})
           console.log(info)
+          console.log(selectedCheckboxes)
         }
     }
   return (
@@ -117,7 +116,7 @@ function Home() {
         <Navbar/>
       </header>
       <main className="flex-shrink flex-grow py-10 flex flex-col md:flex-row">
-        <section className="w-full  md:w-1/2 flex flex-col justify-center items-center">
+        <section className="w-full   md:w-1/2 flex flex-col justify-center items-center">
           <TitleSections number={1} title={'Ingrese su información'}/>
           <PersonalDataForm info={info} setInfo={setInfo}/>
         </section>
@@ -137,8 +136,9 @@ function Home() {
               </p>
               {
                 display.map(item=>{
+                    const checked = selectedCheckboxes.includes(item.id)
                     return(
-                        <ListItem  key={item.id} item={item} handleCheckboxChange={handleCheckboxChange}/>
+                        <ListItem  key={item.id} check={checked} item={item} handleCheckboxChange={handleCheckboxChange}/>
                     )
                 })
               }
