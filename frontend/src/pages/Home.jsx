@@ -60,6 +60,8 @@ function Home() {
     const [discountProduct,setdiscountProduct]=useState(0)
     const [discountServices,setdiscountServices]=useState(0)
     const [totalServices, setTotalServices]=useState(0)
+    const [modal, setModal]=useState(false)
+
     const [info, setInfo]=useState({
         name:"",
         lastname:"",
@@ -108,7 +110,14 @@ function Home() {
           setInfo({...info,cart:[...selectedCheckboxes]})
           console.log(info)
           console.log(selectedCheckboxes)
+          handlerModal()
         }
+    }
+    const handlerModal = async()=>{
+        setModal(true)
+        setTimeout(()=>{
+          setModal(false)
+        },2000)
     }
   return (
     <>
@@ -154,6 +163,12 @@ function Home() {
         </section>
       </main>
       <Footer/>
+      {
+        modal &&
+        <div className="fixed top-5 left-1/2 w-24 h-10 rounded-md bg-orange-400 text-black grid place-content-center">
+          <p className="font-bold text-center text-lg"> ✔️ Enviado</p>
+        </div>
+      }
     </>
   );
 }
