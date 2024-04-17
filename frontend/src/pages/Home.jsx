@@ -85,6 +85,17 @@ function Home() {
           if(response.ok){
             console.log(info)
             console.log(selectedCheckboxes)
+            setInfo( {
+                name:"",
+                lastName:"",
+                email:"",
+                date:"",
+                cart:[],
+            })
+            setSelectedCheckboxes([])
+            setdiscountProduct(0)
+            setdiscountServices(0)
+            setTotalServices(0)
             handlerModal()
           }
           

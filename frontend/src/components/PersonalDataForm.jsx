@@ -8,6 +8,7 @@ export default function PersonalDataForm({info,setInfo}){
                 type="text"
                 id="name"
                 name="name"
+                value={info.name}
                 onChange={(e)=>{setInfo({...info, name:e.target.value})}}
                 placeholder="Introduzca su nombre"
                 required
@@ -16,6 +17,7 @@ export default function PersonalDataForm({info,setInfo}){
               <input
                 className="border-2 border-gray-300 rounded-full p-2"
                 type="text"
+                value={info.lastName}
                 id="lastName"
                 name="lastName"
                 onChange={(e)=>{setInfo({...info, lastName:e.target.value})}}
@@ -26,6 +28,7 @@ export default function PersonalDataForm({info,setInfo}){
               <input
                 className="border-2 border-gray-300 rounded-full p-2"
                 type="email"
+                value={info.email}
                 id="email"
                 name="email"
                 onChange={(e)=>{setInfo({...info, email:e.target.value})}}
@@ -36,6 +39,7 @@ export default function PersonalDataForm({info,setInfo}){
               <input
                 className="border-2 border-gray-300 rounded-full p-2"
                 type="datetime-local"
+                value={info.date}
                 id="date"
                 name="date"
                 onChange={(e)=>{setInfo({...info, date:e.target.value})}}
