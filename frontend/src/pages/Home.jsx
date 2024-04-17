@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Nabar";
 import TitleSections from "../components/TitleSections";
@@ -7,69 +7,32 @@ import PersonalDataForm from "../components/PersonalDataForm";
 import Searcher from "../components/Searcher";
 import ButtonComfirm from "../components/ButtonComfirm";
 import ListItem from "../components/ListItem";
-const productos = [
-    {
-        id:"p001",
-        name:"Producto 1",
-        price:100,
-        type:'p'
-    },
-    {
-        id:"p002",
-        name:"Producto 2",
-        price:200,
-        type:'p'
-    },
-    {
-        id:"p003",
-        name:"Producto 3",
-        price:103,
-        type:'p'
-    },
-    {
-      id:"p004",
-      name:"Producto 4",
-      price:10,
-      type:'p'
-  },
-]
-const servicios = [
-    {
-        id:"s001",
-        name:"Servicio 1",
-        price:800,
-        type:'s'
-    },
-    {
-        id:"s002",
-        name:"Servicio 2",
-        price:900,
-        type:'s'
-    },
-    {
-        id:"s003",
-        name:"Servicio 3",
-        price:200,
-        type:'s'
-    },
-]
+
+
 function Home() {
-    const [prodAndServ, setProdAndServ] = useState([...productos,...servicios])
-    const [display, setDisplay] = useState([...prodAndServ])
+    const [prodAndServ, setProdAndServ] = useState([])
+    const [display, setDisplay] = useState([])
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
     const [discountProduct,setdiscountProduct]=useState(0)
     const [discountServices,setdiscountServices]=useState(0)
     const [totalServices, setTotalServices]=useState(0)
     const [modal, setModal]=useState(false)
-
     const [info, setInfo]=useState({
         name:"",
-        lastname:"",
+        lastName:"",
         email:"",
         date:"",
         cart:[],
     })
-
+    useEffect(()=>{
+      const callApi=async()=>{
+        const res = await fetch('https://prueba-tecnica-disagro.vercel.app/api/v1/products-and-services');
+        const data = await res.json()
+        setProdAndServ(data)
+        setDisplay(data)
+      }
+      callApi();
+    },[])
     const handlerDisplay=(e)=>{
         const word = e.target.value;
         const res = prodAndServ.filter(item=>{
@@ -78,10 +41,11 @@ function Home() {
         })
         setDisplay(res)
     }
-
+    console.log(selectedCheckboxes)
     const handleCheckboxChange = (id) => {
-        
-        const item = prodAndServ.find(item=>item.id===id)
+        console.log(id)
+        const item = prodAndServ.find(item=>item._id===id)
+        console.log(item)
         if (selectedCheckboxes.includes(id)) {
           setSelectedCheckboxes(selectedCheckboxes.filter(item => item !== id));
           if(item.type==='p')
@@ -103,14 +67,27 @@ function Home() {
           
     };
 
-    const handlerSubmit =()=>{
+    const handlerSubmit = async()=>{
         
-        if(info.name!="" && info.lastname!="" && info.email!="" && info.date!="" && selectedCheckboxes.length 
+        if(info.name!="" && info.lastName!="" && info.email!="" && info.date!="" && selectedCheckboxes.length 
         !=0){
-          setInfo({...info,cart:[...selectedCheckboxes]})
-          console.log(info)
           console.log(selectedCheckboxes)
-          handlerModal()
+          setInfo({...info,cart:[...selectedCheckboxes]})
+          const url = 'https://prueba-tecnica-disagro.vercel.app/api/v1/assistance'
+          console.log(JSON.stringify(info))
+          const response = await fetch(url, {
+            method: "POST", 
+            headers: {
+              "Content-Type": "application/json",
+            },
+             body: JSON.stringify(info), 
+          });
+          if(response.ok){
+            console.log(info)
+            console.log(selectedCheckboxes)
+            handlerModal()
+          }
+          
         }
     }
     const handlerModal = async()=>{
@@ -145,9 +122,9 @@ function Home() {
               </p>
               {
                 display.map(item=>{
-                    const checked = selectedCheckboxes.includes(item.id)
+                    const checked = selectedCheckboxes.includes(item._id)
                     return(
-                        <ListItem  key={item.id} check={checked} item={item} handleCheckboxChange={handleCheckboxChange}/>
+                        <ListItem  key={item._id} check={checked} item={item} handleCheckboxChange={handleCheckboxChange}/>
                     )
                 })
               }
@@ -165,7 +142,7 @@ function Home() {
       <Footer/>
       {
         modal &&
-        <div className="fixed top-5 left-1/2 w-24 h-10 rounded-md bg-orange-400 text-black grid place-content-center">
+        <div className="fixed top-5 left-1/2 w-32 h-10 rounded-md bg-orange-400 text-black grid place-content-center">
           <p className="font-bold text-center text-lg"> ✔️ Enviado</p>
         </div>
       }

@@ -5,11 +5,11 @@ export default function ListItem({item, handleCheckboxChange,check}) {
         <input
           type="checkbox"
           checked={check}
-          onChange={() => handleCheckboxChange(item.id)}
-          id={item.id}
+          onChange={() => handleCheckboxChange(item._id)}
+          id={item._id}
           value={item.price}
         />
-        <label htmlFor={item.id}>{item.name}</label>
+        <label htmlFor={item._id}>{item.name}</label>
       </div>
       <span>Q.{item.price}</span>
     </div>

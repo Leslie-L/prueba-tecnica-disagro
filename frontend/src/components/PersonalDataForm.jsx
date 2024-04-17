@@ -12,13 +12,13 @@ export default function PersonalDataForm({info,setInfo}){
                 placeholder="Introduzca su nombre"
                 required
               />
-              <label htmlFor="lastname">Apellido:</label>
+              <label htmlFor="lastName">Apellido:</label>
               <input
                 className="border-2 border-gray-300 rounded-full p-2"
                 type="text"
-                id="lastname"
-                name="lastname"
-                onChange={(e)=>{setInfo({...info, lastname:e.target.value})}}
+                id="lastName"
+                name="lastName"
+                onChange={(e)=>{setInfo({...info, lastName:e.target.value})}}
                 placeholder="Introduzca su apellido"
                 required
               />
