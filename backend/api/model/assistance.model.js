@@ -1,5 +1,8 @@
 const mongoose =  require('mongoose')
 const AssistanceModel =  mongoose.Schema({
+    user:{
+      type:String
+    },
     name:{
       type:String,
       required: true,
