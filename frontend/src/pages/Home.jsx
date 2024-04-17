@@ -41,11 +41,11 @@ function Home() {
         })
         setDisplay(res)
     }
-    console.log(selectedCheckboxes)
+    
     const handleCheckboxChange = (id) => {
-        console.log(id)
+        
         const item = prodAndServ.find(item=>item._id===id)
-        console.log(item)
+        
         if (selectedCheckboxes.includes(id)) {
           setSelectedCheckboxes(selectedCheckboxes.filter(item => item !== id));
           if(item.type==='p')
@@ -71,10 +71,10 @@ function Home() {
         
         if(info.name!="" && info.lastName!="" && info.email!="" && info.date!="" && selectedCheckboxes.length 
         !=0){
-          console.log(selectedCheckboxes)
+          
           setInfo({...info,cart:[...selectedCheckboxes]})
           const url = 'https://prueba-tecnica-disagro.vercel.app/api/v1/assistance'
-          console.log(JSON.stringify(info))
+          
           const response = await fetch(url, {
             method: "POST", 
             headers: {
@@ -83,8 +83,7 @@ function Home() {
              body: JSON.stringify(info), 
           });
           if(response.ok){
-            console.log(info)
-            console.log(selectedCheckboxes)
+            
             setInfo( {
                 name:"",
                 lastName:"",
