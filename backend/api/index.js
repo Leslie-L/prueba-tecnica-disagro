@@ -21,8 +21,11 @@ app.get('/',(req,res)=>{
 
 routerApi(app);
 
-app.listen(PORT,()=>{
-  console.log('server on')
-})
+mongoose.connect(process.env.DB)
+  .then(() =>{
+    app.listen(PORT,()=>{
+      console.log('server on')
+    })
+  });
 
   module.exports = app
